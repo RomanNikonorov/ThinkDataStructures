@@ -13,7 +13,7 @@ import java.util.ListIterator;
  */
 public class MyArrayList<T> implements List<T> {
 	int size;                    // keeps track of the number of elements
-	private T[] array;           // stores the elements
+	private T[] array;     		 // stores the elements
 
 	/**
 	 *
@@ -28,24 +28,30 @@ public class MyArrayList<T> implements List<T> {
 	}
 
 	/**
-	 * @param args
+	 * @param args args
 	 */
 	public static void main(String[] args) {
 		// run a few simple tests
-		MyArrayList<Integer> mal = new MyArrayList<Integer>();
+		MyArrayList<Integer> mal = new MyArrayList<>();
 		mal.add(1);
 		mal.add(2);
 		mal.add(3);
 		System.out.println(Arrays.toString(mal.toArray()) + " size = " + mal.size);
 
-		mal.remove(new Integer(2));
+		mal.remove(Integer.valueOf(2));
 		System.out.println(Arrays.toString(mal.toArray()) + " size = " + mal.size);
 	}
 
 	@Override
 	public boolean add(T element) {
-		// TODO: FILL THIS IN!
-		return false;
+		if(size >= array.length) {
+			@SuppressWarnings("unchecked")
+			T[] bigger = (T[]) new Object[array.length * 2];
+			System.arraycopy(array, 0, bigger, 0, array.length);
+			array = bigger;
+		}
+		array[size++] = element;
+		return true;
 	}
 
 	@Override
@@ -110,7 +116,14 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public int indexOf(Object target) {
-		// TODO: FILL THIS IN!
+		for(int i = 0; i < size; i++) {
+			if(target == null && array[i] == null) {
+				return i;
+			}
+			if(array[i].equals(target)) {
+				return i;
+			}
+		}
 		return -1;
 	}
 
@@ -119,7 +132,7 @@ public class MyArrayList<T> implements List<T> {
 	 * Handles the special case that the target is null.
 	 *
 	 * @param target
-	 * @param object
+	 * @param element
 	 */
 	private boolean equals(Object target, Object element) {
 		if (target == null) {
@@ -181,8 +194,12 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
-		// TODO: FILL THIS IN!
-		return null;
+		T toRemove = get(index);
+		for(int i = index; i < size-1; i++) {
+			array[i] = array[i+1];
+		}
+		size--;
+		return toRemove;
 	}
 
 	@Override
@@ -201,8 +218,9 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public T set(int index, T element) {
-		// TODO: FILL THIS IN!
-		return null;
+		T previous = get(index);
+		array[index] = element;
+		return previous;
 	}
 
 	@Override
