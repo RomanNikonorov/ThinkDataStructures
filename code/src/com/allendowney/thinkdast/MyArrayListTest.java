@@ -1,16 +1,17 @@
 package com.allendowney.thinkdast;
 
 //import static org.junit.Assert.*;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.hamcrest.CoreMatchers.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * @author downey
@@ -63,7 +64,7 @@ public class MyArrayListTest {
 	public void testAddIntT() {
 		mylist.add(1, 5);
 		//System.out.println(Arrays.toString(mal.toArray()));
-		assertThat(mylist.get(1), is(new Integer(5)));
+		assertThat(mylist.get(1), is(5));
 		assertThat(mylist.size(), is(4));
 
 		try {
@@ -82,7 +83,7 @@ public class MyArrayListTest {
 
 		mylist.add(5, 7);
 		//System.out.println(Arrays.toString(mal.toArray()));
-		assertThat(mylist.get(5), is(new Integer(7)));
+		assertThat(mylist.get(5), is(7));
 	}
 
 	/**
